@@ -1,0 +1,12 @@
+% Fatti da generare con java
+% Player
+giocatore(0, white).
+giocatore(1, black).
+
+% Pedine attuali
+pedina(0,4,4).
+pedina(0,4,5).
+pedina(0,4,6).
+pedina(1, 5, 4).
+pedina(1, 5, 5).
+pedina(1, 5, 6).

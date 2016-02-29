@@ -1,0 +1,83 @@
+% CHECK
+:- in(_,X,_), in(_,Y,_), X!=Y.
+:- in(_,_,Y), in(_,_,X), X!=Y.
+
+% SUD
+sud(W,Y) :- in(_,X,Y), pedina(1,W,Y), W=X+1.
+sud(W,Y) :- sud(X,Y), pedina(1,W,Y), W=X+1.
+sudF(X,Y) :- sud(X,Y), sud(W,Z), X<W.
+sudFinale(X,Y) :- sud(X,Y), not sudF(X,Y).
+almenoS:- sudFinale(X,Y), pedina(0,W,Y), W=X+1.
+
+% NORD
+nord(W,Y) :- in(0,X,Y), pedina(1,W,Y), W=X-1.
+nord(W,Y) :- nord(X,Y), pedina(1,W,Y), W=X-1.
+nordF(X,Y) :- nord(X,Y), nord(W,Z), X>W.
+nordFinale(X,Y) :- nord(X,Y), not nordF(X,Y).
+almenoN:- nordFinale(X,Y), pedina(0,W,Y), W=X-1.
+
+% EST
+est(Y,W) :- in(0,Y,X), pedina(1,Y,W), W=X+1.
+est(Y,W) :- est(Y,X), pedina(1,Y,W), W=X+1.
+estF(Y,X) :- est(Y,X), est(W,Z), X<Z.
+estFinale(Y,X) :- est(Y,X), not estF(Y,X).
+almenoE:- estFinale(X,Y), pedina(0,X,W), W=Y+1.
+
+% OVEST
+ovest(Y,W) :- in(0,Y,X), pedina(1,Y,W), W=X-1.
+ovest(Y,W) :- ovest(Y,X), pedina(1,Y,W), W=X-1.
+ovestF(Y,X) :- ovest(Y,X), ovest(W,Z), X>Z.
+ovestFinale(Y,X) :- ovest(Y,X), not ovestF(Y,X).
+almenoO:- ovestFinale(X,Y), pedina(0,X,W), W=Y-1.
+
+% NORD-EST
+nordEst(R,C) :- in(0,X,Y), pedina(1,R,C), R=X-1, C=Y+1.
+nordEst(R,C) :- nordEst(X,Y), pedina(1,R,C), R=X-1, C=Y+1.
+nordEstF(X,Y) :- nordEst(X,Y), nordEst(R,C), X>R, Y<C.
+nordEstFinale(X,Y) :- nordEst(X,Y), not nordEstF(X,Y).
+almenoNE:- nordEstFinale(X,Y), pedina(0,R,C), R=X-1, C=Y+1.
+
+% NORD-OVEST
+nordOvest(R,C) :- in(0,X,Y), pedina(1,R,C), R=X-1, C=Y-1.
+nordOvest(R,C) :- nordOvest(X,Y), pedina(1,R,C), R=X-1, C=Y-1.
+nordOvestF(X,Y) :- nordOvest(X,Y), nordOvest(R,C), X>R, Y>C.
+nordOvestFinale(X,Y) :- nordOvest(X,Y), not nordOvestF(X,Y).
+almenoNO:- nordOvestFinale(X,Y), pedina(0,R,C), R=X-1, C=Y-1.
+
+% SUD-OVEST
+sudOvest(R,C) :- in(0,X,Y), pedina(1,R,C), R=X+1, C=Y-1.
+sudOvest(R,C) :- sudOvest(X,Y), pedina(1,R,C), R=X+1, C=Y-1.
+sudOvestF(X,Y) :- sudOvest(X,Y), sudOvest(R,C), X<R, Y>C.
+sudOvestFinale(X,Y) :- sudOvest(X,Y), not sudOvestF(X,Y).
+almenoSO:- sudOvestFinale(X,Y), pedina(0,R,C), R=X+1, C=Y-1.
+
+% SUD-EST
+sudEst(R,C) :- in(0,X,Y), pedina(1,R,C), R=X+1, C=Y+1.
+sudEst(R,C) :- sudEst(X,Y), pedina(1,R,C), R=X+1, C=Y+1.
+sudEstF(X,Y) :- sudEst(X,Y), sudEst(R,C), X<R, Y<C.
+sudEstFinale(X,Y) :- sudEst(X,Y), not sudEstF(X,Y).
+almenoSE:- sudEstFinale(X,Y), pedina(0,R,C), R=X+1, C=Y+1.
+
+:- not almenoS, not almenoN, not almenoE, not almenoO,
+	not almenoSE, not almenoSO, not almenoNE, not almenoNO.
+
+% Pedine mangiate
+mangiata(0,X,Y) :- sud(X,Y), almenoS.
+mangiata(0,X,Y) :- nord(X,Y), almenoN.
+mangiata(0,X,Y) :- est(X,Y), almenoE.
+mangiata(0,X,Y) :- ovest(X,Y), almenoO.
+mangiata(0,X,Y) :- sudEst(X,Y), almenoSE.
+mangiata(0,X,Y) :- sudOvest(X,Y), almenoSO.
+mangiata(0,X,Y) :- nordEst(X,Y), almenoNE.
+mangiata(0,X,Y) :- nordOvest(X,Y), almenoNO.
+
+% Controllo se esiste almeno una pedina mangiata
+%almenoUno :- sudFinale(X,Y).
+%almenoUno :- nordFinale(X,Y).
+%almenoUno :- estFinale(X,Y).
+%almenoUno :- ovestFinale(X,Y).
+%almenoUno :- nordEstFinale(X,Y).
+%almenoUno :- nordOvestFinale(X,Y).
+%almenoUno :- sudOvestFinale(X,Y).
+%almenoUno :- sudEstFinale(X,Y).
+%:- not almenoUno.

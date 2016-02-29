@@ -1,0 +1,26 @@
+% Cella occupata
+occupata(R,C) :- pedina(_,R,C).
+
+% NORD
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), R<R1, R1<R2, C=C1, C=C2.
+
+% SUD
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), R>R1, R1>R2, C=C1, C=C2.
+
+% EST
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), C>C1, C1>C2, R=R1, R2=R1.
+
+% OVEST
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), C<C1, C1<C2, R=R1, R2=R1.
+
+% NORD-EST
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), R2=R+K, C=C2+K, R1=R+J, C=C1+J, #int(K), #int(J).
+
+% NORD-OVEST
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), R2=R+K, C2=C+K, R1=R+J, C1=C+J, #int(K), #int(J).
+
+% SUD-EST
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), R=R2+K, C=C2+K, R=R1+J, C=C1+J, #int(K), #int(J).
+
+% SUD-OVEST
+giocabile(0,R,C) :- adiacenti(R,C,R1,C1), pedina(1,R1,C1), not occupata(R,C), pedina(0,R2,C2), R=R2+K, C2=C+K, R=R1+J, C1=C+J, #int(K), #int(J).

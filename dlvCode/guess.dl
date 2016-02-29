@@ -1,0 +1,4 @@
+% GUESS
+in(0,X,Y) | out(0,X,Y) :- giocabile(0,X,Y).
+
+mossa(P, R, C) :- in(CG,R,C), giocatore(CG, P).

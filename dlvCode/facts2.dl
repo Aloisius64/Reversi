@@ -1,0 +1,14 @@
+giocatore(0,white).
+giocatore(1,black).
+pedina(0, 4, 4).
+pedina(1, 4, 5).
+pedina(1, 4, 8).
+pedina(1, 5, 4).
+pedina(0, 5, 5).
+pedina(0, 5, 6).
+pedina(0, 5, 7).
+pedina(0, 5, 8).
+pedina(1, 6, 3).
+pedina(0, 6, 4).
+pedina(1, 6, 6).
+pedina(1, 7, 6).
